@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ran</title>
+    <link rel="stylesheet" href="{% static "css/base.css" %}" />
+    <script src="{% static "js/jquery.js" %}"></script>
+</head>
+<body>
+    <h1>ran says</h1>
+    hello world!<strong>{{ boldmessage }}</strong><br />
+    <a href="/ran/about/">关于</a><br />
+    <img src="{% static "images/nav.jpg" %}" alt="Picture of Ran" />
+</body>
+</html>

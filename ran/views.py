@@ -1,6 +1,13 @@
 # -*-coding: utf-8 -*-
 from django.http import HttpResponse
+from django.shortcuts import render
 
 
 def index(request):
-    return HttpResponse('欢迎啊!')
+    context_dict = {'boldmessage': '这里是boldmessage'}
+    return render(request, 'ran/index.html', context_dict)
+    # return HttpResponse('欢迎啊!<br/><a href="/ran/about">关于</a>')
+
+
+def about(request):
+    return HttpResponse('关于页面<br/><a href="/ran/">主页</a>')
