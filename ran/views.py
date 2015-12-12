@@ -1,5 +1,5 @@
 # -*-coding: utf-8 -*-
-from django.http import HttpResponse
+# from django.http import HttpResponse
 from django.shortcuts import render
 
 
@@ -10,4 +10,6 @@ def index(request):
 
 
 def about(request):
-    return HttpResponse('关于页面<br/><a href="/ran/">主页</a>')
+    context_dict = {'about': '这里是about'}
+    return render(request, 'ran/about.html', context_dict)
+    # return HttpResponse('关于页面<br/><a href="/ran/">主页</a>')
