@@ -2,7 +2,7 @@
 # from django.http import HttpResponse
 from django.shortcuts import render
 from ran.models import Category, Page
-from ran.forms import CategoryForm
+from ran.forms import CategoryForm, PageForm
 
 
 def index(request):
@@ -28,6 +28,7 @@ def category(request, category_name_slug):
         pages = Page.objects.filter(category=category)
         context_dict['pages'] = pages
         context_dict['category'] = category
+        context_dict['category_name_slug'] = category_name_slug
     except Category.DoesNotExist:
         pass
     return render(request, 'ran/category.html', context_dict)
@@ -45,3 +46,26 @@ def add_category(request):
         form = CategoryForm()
 
     return render(request, 'ran/add_category.html', {'form': form})
+
+
+def add_page(request, category_name_slug):
+    try:
+        cat = Category.objects.get(slug=category_name_slug)
+    except Category.DoesNotExist:
+        cat = None
+    if request.method == 'POST':
+        form = PageForm(request.POST)
+        if form.is_valid():
+            if cat:
+                page = form.save(commit=False)
+                page.category = cat
+                page.views = 0
+                page.save()
+                return category(request, category_name_slug)
+        else:
+            print form.errors
+    else:
+        form = PageForm()
+
+    context_dict = {'form': form, 'category': cat}
+    return render(request, 'ran/add_page.html', context_dict)
