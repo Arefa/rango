@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>rango</title>
+</head>
+<body>
+    <h1>注册页面</h1>
+    {% if registered %}
+    rango says: <strong>谢谢注册!</strong>
+    <a href="/ran/">回到主页</a><br />
+    {% else %}
+    rango says: <strong>这里注册!</strong>
+    <form id="user_form" method="post" action="/ran/register/" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ user_form.as_p }}
+        {{ profile_form.as_p }}
+
+        <input type="submit" name="submit" value="注册">
+    </form>
+    {% endif %}
+</body>
+</html>
