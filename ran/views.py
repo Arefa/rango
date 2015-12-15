@@ -1,8 +1,10 @@
 # -*-coding: utf-8 -*-
-# from django.http import HttpResponse
+from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from ran.models import Category, Page
 from ran.forms import CategoryForm, PageForm, UserForm, UserProfileForm
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
@@ -94,3 +96,34 @@ def register(request):
     return render(request,
                   'ran/register.html',
                   {'user_form': user_form, 'profile_form': profile_form, 'registered': registered})
+
+
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(username=username, password=password)
+
+        if user:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect('/ran/')
+            else:
+                return HttpResponse('该账户未激活！')
+        else:
+            print "无效登录详情： {0}, {1}".format(username, password)
+            return HttpResponse('无效登录详情支持。')
+    else:
+        return render(request, 'ran/login.html', {})
+
+
+@login_required
+def restricted(request):
+    return HttpResponse('登录后可见此信息！')
+
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect('/ran/')

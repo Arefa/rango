@@ -1,15 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Ran</title>
-</head>
-<body>
-    <h1>ran says</h1>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}主页{% endblock %}
+
+{% block body_block %}
+    {% if user.is_authenticated %}
+    <h1>Rango says... hello {{ user.username }}!</h1>
+    {% else %}
+    <h1>Rango says... hello world!</h1>
+    {% endif %}
     {% if categories %}
         <ul>
             {% for category in categories %}
-            <li><a href="/ran/category/{{ category.slug }}">{{ category.name }}</a></li>
+            <li><a href="{% url 'category' category.slug %}">{{ category.name }}</a></li>
             {% endfor %}
         </ul>
     {% else %}
@@ -24,9 +27,4 @@
     {% else %}
         <strong>当前没有可供展示的页面！</strong>
     {% endif %}
-
-    <a href="/ran/about/">关于</a><br />
-    <a href="/ran/add_category/">增加一个目录</a><br />
-    <a href="/ran/register/">这里注册</a><br />
-</body>
-</html>
+{% endblock %}

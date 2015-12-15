@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}关于{% endblock %}
+
+{% block body_block %}
     <h1>{{ about }}</h1>
-    <a href="/ran/">主页</a><br />
-    
-</body>
-</html>
+    <a href="{% url '' %}">回到主页</a><br />
+{% endblock %}
