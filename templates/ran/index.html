@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'ran/base.html' %}
 {% load static %}
 
 {% block title %}主页{% endblock %}
@@ -12,7 +12,7 @@
     {% if categories %}
         <ul>
             {% for category in categories %}
-            <li><a href="{% url 'category' category.slug %}">{{ category.name }}</a></li>
+                <li><a href="/ran/category/{{ category.slug }}">{{ category.name }}</a></li>
             {% endfor %}
         </ul>
     {% else %}
@@ -27,4 +27,5 @@
     {% else %}
         <strong>当前没有可供展示的页面！</strong>
     {% endif %}
+    <p> 历史访问次数: {{ visits }}</p>
 {% endblock %}
