@@ -1,0 +1,12 @@
+{% extends 'ran/base.html' %}
+
+{% block body_block %}
+    <h1>登录</h1>
+    <form method="post" action=".">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="登录" />
+        <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+    <p>还没账号？<a href="{% url 'registration_register' %}">注册</a> !</p>
+{% endblock %}

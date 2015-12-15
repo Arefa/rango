@@ -17,10 +17,18 @@ Including another URLconf
 from django.conf.urls import url, include, patterns
 from django.contrib import admin
 from django.conf import settings
+from registration.backends.simple.views import RegistrationView
+
+
+class MyRegistrationView(RegistrationView):
+    def get_success_url(self, user):
+        return '/ran/'
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'ran/', include('ran.urls')),
+    url(r'accounts/register/$', MyRegistrationView.as_view(), name='registration_register'),
+    url(r'^accounts/', include('registration.backends.simple.urls')),
 ]
 
 if settings.DEBUG:
@@ -29,9 +37,3 @@ if settings.DEBUG:
         (r'^media/(?P<path>.*)',
          'serve',
          {'document_root': settings.MEDIA_ROOT}), )
-# urlpatterns += [
-#        'django.views.static',
-#        (r'^media/(?P<path>.*)',
-#         'serve',
-#         {'document_root': settings.MEDIA_ROOT}),
-#    ]
