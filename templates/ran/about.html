@@ -1,9 +1,14 @@
 {% extends 'ran/base.html' %}
-{% load static %}
+{% load staticfiles %}
 
 {% block title %}关于{% endblock %}
 
 {% block body_block %}
-    <h1>{{ about }}</h1>
-    <a href="{% url '' %}">回到主页</a><br />
+    <div class="page-header">
+        <h1>{{ about }}</h1>
+    </div>
+    <div>
+
+    </div>
+    <img  width="90" height="100" src="{% static "images/nav.jpg" %}" alt="Picture of Rango" /> <!-- New line -->
 {% endblock %}

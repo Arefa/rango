@@ -1,31 +1,41 @@
 {% extends 'ran/base.html' %}
-{% load static %}
+{% load staticfiles %}
 
 {% block title %}主页{% endblock %}
 
 {% block body_block %}
     {% if user.is_authenticated %}
-    <h1>Rango says... hello {{ user.username }}!</h1>
+    <div class="page-header">
+        <h1>Rango says... hello {{ user.username }}!</h1>
     {% else %}
-    <h1>Rango says... hello world!</h1>
+        <h1>Rango says... hello world!</h1>
     {% endif %}
-    {% if categories %}
-        <ul>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">目录</h3>
+            {% if categories %}
+            <ul class="list-group">
             {% for category in categories %}
-                <li><a href="/ran/category/{{ category.slug }}">{{ category.name }}</a></li>
+                <li class="list-group-item"><a href="/ran/category/{{ category.slug }}">{{ category.name }}</a></li>
             {% endfor %}
-        </ul>
-    {% else %}
-        <strong>当前没有可供展示的目录！</strong>
-    {% endif %}
-    {% if pages %}
-        <ul>
+            </ul>
+            {% else %}
+            <strong>当前没有可供展示的目录！</strong>
+            {% endif %}
+        </div>
+        <div class="panel-heading">
+            <h3 class="panel-title">页面</h3>
+            {% if pages %}
+            <ul class="list-group">
             {% for page in pages %}
-            <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+                <li class="list-group-item"><a href="{{ page.url }}">{{ page.title }}</a></li>
             {% endfor %}
-        </ul>
-    {% else %}
-        <strong>当前没有可供展示的页面！</strong>
-    {% endif %}
+            </ul>
+            {% else %}
+            <strong>当前没有可供展示的页面！</strong>
+            {% endif %}
+        </div>
+    </div>
     <p> 历史访问次数: {{ visits }}</p>
 {% endblock %}
